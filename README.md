@@ -13,9 +13,6 @@ BiyaLog adalah web sederhana untuk mencatat lagu dalam bentuk struk aesthetic vi
 - MySQL
 - Tailwind CSS
 
-## 📸 Preview
-Vintage receipt style inspired by Spotify Receiptify
-
 ## 🚀 Cara Menjalankan
 1. Jalankan XAMPP / Laragon
 2. Import database
