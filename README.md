@@ -62,4 +62,7 @@ CREATE TABLE tracks (
     artist VARCHAR(255),
     duration VARCHAR(10)
 );
+
+---
+
 Biya
