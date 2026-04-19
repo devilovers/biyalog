@@ -52,6 +52,7 @@ biyalog/
 
 ## 🧾 Database
 
+```sql
 CREATE DATABASE receiptify;
 
 USE receiptify;
@@ -62,7 +63,3 @@ CREATE TABLE tracks (
     artist VARCHAR(255),
     duration VARCHAR(10)
 );
-
----
-
-Biya
