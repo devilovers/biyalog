@@ -1,6 +1,24 @@
 <?php
 include "core.php";
 $data = mysqli_query($core, "SELECT * FROM tracks ORDER BY id ASC");
+
+$totalSeconds = 0;
+$tracks = [];
+
+while($row = mysqli_fetch_assoc($data)) {
+    $tracks[] = $row;
+
+    if (!empty($row['duration']) && strpos($row['duration'], ':') !== false) {
+        list($min, $sec) = explode(":", $row['duration']);
+        $totalSeconds += ($min * 60) + $sec;
+    }
+}
+
+$totalMinutes = floor($totalSeconds / 60);
+$remainingSeconds = $totalSeconds % 60;
+
+$totalTime = sprintf("%02d:%02d", $totalMinutes, $remainingSeconds);
+$itemCount = count($tracks);
 ?>
 
 <!DOCTYPE html>
@@ -50,7 +68,7 @@ $data = mysqli_query($core, "SELECT * FROM tracks ORDER BY id ASC");
 
     <div class="text-sm space-y-1">
         <?php $no = 1; ?>
-        <?php while($row = mysqli_fetch_assoc($data)) { ?>
+        <?php foreach($tracks as $row) { ?>
             <div class="flex justify-between">
                 <span>
                     <?= str_pad($no, 2, "0", STR_PAD_LEFT) ?>
@@ -67,6 +85,8 @@ $data = mysqli_query($core, "SELECT * FROM tracks ORDER BY id ASC");
     <div class="border-t border-dashed border-black my-4"></div>
 
     <div class="text-xs text-center space-y-1">
+        <p>ITEMS: <?= $itemCount ?></p>
+        <p>TOTAL: <?= $totalTime ?></p>
         <p><?= date("d/m/Y") ?></p>
         <p class="opacity-50">BIYA RECEIPT SYSTEM</p>
     </div>
