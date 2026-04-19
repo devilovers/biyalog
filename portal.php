@@ -55,9 +55,9 @@ $itemCount = count($tracks);
     </style>
 </head>
 
-<body class="bg-[#d6d1c4] flex justify-center items-center min-h-screen">
+<body class="bg-[#d6d1c4] flex flex-col justify-center items-center min-h-screen">
 
-<div class="bg-[#fdf6e3] w-[340px] p-6 shadow-xl tear">
+<div id="receipt" class="bg-[#fdf6e3] w-[340px] p-6 shadow-xl tear">
 
     <div class="text-center">
         <h1 class="text-xl tracking-widest">BIYALOG</h1>
@@ -92,6 +92,37 @@ $itemCount = count($tracks);
     </div>
 
 </div>
+
+<div class="mt-6">
+    <button onclick="downloadReceipt()"
+        class="px-4 py-2 border border-black text-sm hover:bg-black hover:text-white transition">
+        ⬇ download receipt
+    </button>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+
+<script>
+function downloadReceipt() {
+    const receipt = document.getElementById("receipt");
+
+    html2canvas(receipt, {
+        scale: 2,
+        backgroundColor: "#fdf6e3"
+    }).then(canvas => {
+        const link = document.createElement("a");
+
+        const now = new Date();
+        const filename = "biyalog-" + now.getFullYear() + "-" + 
+                         (now.getMonth()+1) + "-" + 
+                         now.getDate() + ".png";
+
+        link.download = filename;
+        link.href = canvas.toDataURL("image/png");
+        link.click();
+    });
+}
+</script>
 
 </body>
 </html>
