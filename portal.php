@@ -69,13 +69,23 @@ $itemCount = count($tracks);
     <div class="text-sm space-y-1">
         <?php $no = 1; ?>
         <?php foreach($tracks as $row) { ?>
-            <div class="flex justify-between">
+            <div class="flex justify-between items-center">
                 <span>
                     <?= str_pad($no, 2, "0", STR_PAD_LEFT) ?>
                     <?= strtoupper($row['title']) ?>
                 </span>
-                <span><?= $row['duration'] ?></span>
+
+                <div class="flex items-center gap-2">
+                    <span><?= $row['duration'] ?></span>
+
+                    <a href="purge.php?erase=<?= $row['id'] ?>"
+                       onclick="return confirm('hapus lagu ini?')"
+                       class="text-red-500 text-xs hover:underline">
+                       x
+                    </a>
+                </div>
             </div>
+
             <div class="text-xs opacity-70 mb-2">
                 <?= strtoupper($row['artist']) ?>
             </div>
@@ -88,16 +98,24 @@ $itemCount = count($tracks);
         <p>ITEMS: <?= $itemCount ?></p>
         <p>TOTAL: <?= $totalTime ?></p>
         <p><?= date("d/m/Y") ?></p>
-        <p class="opacity-50">BIYA RECEIPT SYSTEM</p>
+        <p class="opacity-50">BIYA RECEIPT</p>
     </div>
 
 </div>
 
-<div class="mt-6">
+<div class="mt-6 flex flex-col items-center gap-2">
+
     <button onclick="downloadReceipt()"
         class="px-4 py-2 border border-black text-sm hover:bg-black hover:text-white transition">
         ⬇ download receipt
     </button>
+
+    <a href="purge.php?obliterate=true"
+       onclick="return confirm('hapus semua data?')"
+       class="text-xs text-gray-600 hover:text-black underline">
+       reset receipt
+    </a>
+
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
