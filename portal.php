@@ -52,6 +52,33 @@ $itemCount = count($tracks);
                 transparent 10px
             );
         }
+
+        .dark-mode {
+            background: linear-gradient(
+                to bottom,
+                #2a2a2a,
+                #1e1e1e
+            ) !important;
+            color: #e5e5e5 !important;
+        }
+
+        .dark-mode .border-dashed {
+            border-color: #666 !important;
+        }
+
+        .dark-mode a {
+            color: #ff8a8a !important;
+        }
+
+        .dark-mode.tear::after {
+            background: repeating-linear-gradient(
+                -45deg,
+                #1e1e1e,
+                #1e1e1e 5px,
+                transparent 5px,
+                transparent 10px
+            );
+        }
     </style>
 </head>
 
@@ -110,6 +137,11 @@ $itemCount = count($tracks);
         ⬇ download receipt
     </button>
 
+    <button onclick="toggleMode()"
+        class="px-4 py-2 border border-black text-sm hover:bg-black hover:text-white transition">
+        🌙 toggle mode
+    </button>
+
     <a href="purge.php?obliterate=true"
        onclick="return confirm('hapus semua data?')"
        class="text-xs text-gray-600 hover:text-black underline">
@@ -139,6 +171,11 @@ function downloadReceipt() {
         link.href = canvas.toDataURL("image/png");
         link.click();
     });
+}
+
+function toggleMode() {
+    const receipt = document.getElementById("receipt");
+    receipt.classList.toggle("dark-mode");
 }
 </script>
 
